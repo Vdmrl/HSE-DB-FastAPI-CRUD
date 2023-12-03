@@ -9,19 +9,18 @@
 {% endblock %}
 
 {% block content %}
-    <div class="flex justify-start flex-col items-center" style="margin-top: 8px">
+    <div class="flex justify-center flex-col items-center" style="margin-top: 8px">
+
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3"> id</th>
-                    <th scope="col" class="px-6 py-3"> Фамилия</th>
-                    <th scope="col" class="px-6 py-3"> Имя</th>
-                    <th scope="col" class="px-6 py-3"> Отчество</th>
+                    <th scope="col" class="px-6 py-3"> Расстояниев метрах</th>
+                    <th scope="col" class="px-6 py-3"> Время рекорда</th>
+                    <th scope="col" class="px-6 py-3"> id Участника</th>
                     <th scope="col" class="px-6 py-3"> Дата рождения</th>
-                    <th scope="col" class="px-6 py-3"> Грейд </th>
-                    <th scope="col" class="px-6 py-3"> Зарплата в рублях</th>
-                    <th scope="col" class="px-6 py-3">действие</th>
+                    <th scope="col" class="px-6 py-3"> Действие </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,6 +37,5 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 {% endblock %}

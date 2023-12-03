@@ -11,25 +11,35 @@
     <title>Клуб по бегу</title>
 </head>
 <body>
-    <nav class="flex justify-between text-3xl my-3">
-        <ul>
-            <li>
-                Клуб по бегу
-            </li>
-        </ul>
-        <ul class="flex gap-5 mr-10">
+<nav class="flex justify-between text-3xl my-3">
+    <ul>
+        <li>
+            Клуб по бегу
+        </li>
+    </ul>
+    <ul class="flex gap-5 mr-10">
+        <a href="members" class="no-underline hover:underline ...">
             Участники
+        </a>
+        <a href="trainers" class="no-underline hover:underline ...">
             Тренера
+        </a>
+        <a href="classes" class="no-underline hover:underline ...">
             Занятия
+        </a>
+        <a href="events" class="no-underline hover:underline ...">
             Мероприятия
+        </a>
+        <a href="records" class="no-underline hover:underline ...">
             Рекорды
-        </ul>
-    </nav>
-    <hr>
-    <div id = "content">
-        {% block content %}
-        {% endblock%}
-    </div>
+        </a>
+    </ul>
+</nav>
+<hr>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
 
 </body>
 </html>
