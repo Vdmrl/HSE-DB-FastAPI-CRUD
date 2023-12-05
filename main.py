@@ -1,12 +1,14 @@
 # python -m uvicorn main:app --reload
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from crud.router import router as router_pages
+from crud.router import router as router_CRUD
+from admin.router import router as router_admin
 from fastapi.staticfiles import StaticFiles
 
 
 app = FastAPI(title="running club")
-app.include_router(router_pages)
+app.include_router(router_CRUD)
+app.include_router(router_admin)
 
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
