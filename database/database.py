@@ -7,7 +7,7 @@ import config as conf
 cursor=None
 while not cursor:
     try:
-        conn = psycopg2.connect(host=conf.DB_HOST, database=conf.DB_NAME, user=conf.DB_USER, password=conf.DB_PASS,
+        conn = psycopg2.connect(host=conf.DB_HOST, database=conf.DB_NAME_RAW, user=conf.DB_USER, password=conf.DB_PASS,
                                 cursor_factory=DictCursor)
         cursor = conn.cursor()
         print("database successful connection")
