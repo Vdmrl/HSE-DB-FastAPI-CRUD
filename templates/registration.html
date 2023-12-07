@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tailwindcss.com"></script>
+
     <title>Клуб по бегу</title>
 </head>
 <body>
@@ -39,7 +40,7 @@
                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                required="">
                     </div>
-                    <button type="submit"
+                    <button type="button" onclick="reg()"
                             class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                         Create an account
                     </button>
@@ -54,4 +55,39 @@
     </div>
 </section>
 </body>
+<script>
+    function reg() {
+        let formData = {
+            email: document.querySelector("#email").value,
+            password: document.querySelector("#password").value,
+            is_active: true,
+            is_superuser: false,
+            is_verified: false
+        };
+        let options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        };
+        console.log(formData);
+        // Отправка fetch-запроса
+        fetch("/auth/register", options)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    }
+
+
+</script>
 </html>

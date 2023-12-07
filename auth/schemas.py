@@ -2,8 +2,16 @@ from fastapi_users import schemas
 from typing import Optional
 
 class UserRead(schemas.BaseUser[int]):
-    pass
+    id: int
+    email: str
+    is_active: bool = True
+    is_superuser: bool = False
+    is_verified: bool = False
 
 
 class UserCreate(schemas.BaseUserCreate):
-    pass
+    email: str
+    password: str
+    is_active: Optional[bool] = True
+    is_superuser: Optional[bool] = False
+    is_verified: Optional[bool] = False

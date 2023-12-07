@@ -2,7 +2,7 @@ from sqlalchemy import Boolean, Column, Integer, String, MetaData, Table
 
 metadata = MetaData()
 user = Table(
-    "users",
+    "user",
     metadata,
     Column("id", Integer, primary_key=True, index=True, nullable=False),
     Column("email", String(length=320), unique=True, index=True, nullable=False),

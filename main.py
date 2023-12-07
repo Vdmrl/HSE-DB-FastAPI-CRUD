@@ -1,5 +1,5 @@
 # python -m uvicorn main:app --reload
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
 from auth.auth import auth_backend
@@ -19,6 +19,7 @@ fastapi_users = FastAPIUsers[User, int](
 app = FastAPI(title="running club")
 app.include_router(router_CRUD)
 app.include_router(router_admin)
+
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
     prefix="/auth/jwt",
@@ -45,3 +46,14 @@ app.add_middleware(
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers",
                    "Access-Control-Allow-Origin", "Authorization"],
 )
+
+current_user = fastapi_users.current_user()
+
+@app.get("/protected-route")
+def protected_route(user: User = Depends(current_user)):
+    return f"Hello, {user.email}"
+
+
+@app.get("/unprotected-route")
+def unprotected_route():
+    return f"Hello, anonym"
