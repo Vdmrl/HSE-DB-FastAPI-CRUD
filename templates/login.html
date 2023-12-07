@@ -16,7 +16,7 @@
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Sign in to your account
                 </h1>
-                <form class="space-y-4 md:space-y-6" action="#">
+                <form class="space-y-4 md:space-y-6">
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                             email</label>
@@ -37,7 +37,7 @@
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">c
                         Don’t have an account yet? <a href="./admin/registration"
                                                       class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign
-                        up</a>
+                            up</a>
                     </p>
                 </form>
             </div>
@@ -47,16 +47,13 @@
 </body>
 <script>
     function reg() {
-        let formData = {
-            username: document.querySelector("#email").value,
-            password: document.querySelector("#password").value
-        };
+        let formData = new FormData();
+        formData.append('username', document.querySelector("#email").value);
+        formData.append('password', document.querySelector("#password").value);
+
         let options = {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
+            body: formData
         };
         console.log(formData);
         // Отправка fetch-запроса
