@@ -1,14 +1,14 @@
 # python -m uvicorn main:app --reload
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_users import FastAPIUsers
 
 from auth.auth import auth_backend
+from auth.database import User
 from auth.manager import get_user_manager
 from crud.router import router as router_CRUD
 from admin.router import router as router_admin
 from fastapi.staticfiles import StaticFiles
-from fastapi_users import FastAPIUsers
-from auth.database import User
 from auth.schemas import UserCreate, UserRead
 
 fastapi_users = FastAPIUsers[User, int](
@@ -46,14 +46,3 @@ app.add_middleware(
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers",
                    "Access-Control-Allow-Origin", "Authorization"],
 )
-
-current_user = fastapi_users.current_user()
-
-@app.get("/protected-route")
-def protected_route(user: User = Depends(current_user)):
-    return f"Hello, {user.email}"
-
-
-@app.get("/unprotected-route")
-def unprotected_route():
-    return f"Hello, anonym"

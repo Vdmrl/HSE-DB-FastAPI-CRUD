@@ -35,9 +35,9 @@
         </a>
     </ul>
     <ul class="flex gap-5 mr-10">
-        <a href="admin" class="no-underline hover:underline ...">
-            войти
-        </a>
+        <button class="no-underline hover:underline ..." onclick="logout()" type="button">
+            выйти
+        </button>
     </ul>
 </nav>
 <hr>
@@ -47,4 +47,22 @@
 </div>
 
 </body>
+<script>
+    let options = {
+            method: "POST"
+        };
+    function logout() {
+        fetch("/auth/jwt/logout", options)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                window.location.href = "/";
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    }
+</script>
 </html>

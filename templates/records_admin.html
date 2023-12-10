@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
 {% block head %}
     <script>
         const searchForOperation = () => {
@@ -16,13 +16,11 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3"> id</th>
-                    <th scope="col" class="px-6 py-3"> название</th>
-                    <th scope="col" class="px-6 py-3"> расстояние в метрах</th>
-                    <th scope="col" class="px-6 py-3"> Дата и время</th>
-                    <th scope="col" class="px-6 py-3"> Место проведения</th>
-                    <th scope="col" class="px-6 py-3"> Цена в рублях</th>
-                    <th scope="col" class="px-6 py-3"> Ссылка</th>
-                    <th scope="col" class="px-6 py-3"> действие</th>
+                    <th scope="col" class="px-6 py-3"> Расстояниев метрах</th>
+                    <th scope="col" class="px-6 py-3"> Время рекорда</th>
+                    <th scope="col" class="px-6 py-3"> id Участника</th>
+                    <th scope="col" class="px-6 py-3"> Дата рождения</th>
+                    <th scope="col" class="px-6 py-3"> Действие </th>
                 </tr>
                 </thead>
                 <tbody>

@@ -74,7 +74,7 @@
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                 }
-                window.location.href = "./";
+                window.location.href = "admin/members";
                 return response.json();
             })
             .then(data => {

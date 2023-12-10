@@ -1,7 +1,11 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
+from fastapi_users import FastAPIUsers
 from starlette.responses import HTMLResponse
 
+from auth.auth import auth_backend
+from auth.database import User
+from auth.manager import get_user_manager
 from database.database import cursor
 
 router = APIRouter(
@@ -9,7 +13,10 @@ router = APIRouter(
     tags=["CRUD"]
 )
 
+
+
 templates = Jinja2Templates(directory="templates")
+
 
 @router.get("/", response_class=HTMLResponse)
 def get_members(request: Request):
