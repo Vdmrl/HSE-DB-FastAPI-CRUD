@@ -4,12 +4,13 @@ from time import sleep
 import config as conf
 
 # connection to databse
-cursor=None
+cursor = None
+connection = None
 while not cursor:
     try:
-        conn = psycopg2.connect(host=conf.DB_HOST, database=conf.DB_NAME_RAW, user=conf.DB_USER, password=conf.DB_PASS,
+        connection = psycopg2.connect(host=conf.DB_HOST, database=conf.DB_NAME_RAW, user=conf.DB_USER, password=conf.DB_PASS,
                                 cursor_factory=DictCursor)
-        cursor = conn.cursor()
+        cursor = connection.cursor()
         print("database successful connection")
         break
     except Exception as ex:

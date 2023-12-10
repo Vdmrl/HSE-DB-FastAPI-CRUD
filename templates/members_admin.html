@@ -20,7 +20,7 @@
                     <th scope="col" class="px-6 py-3"> Имя</th>
                     <th scope="col" class="px-6 py-3"> Отчество</th>
                     <th scope="col" class="px-6 py-3"> Дата рождения</th>
-                    <th scope="col" class="px-6 py-3"> действие </th>
+                    <th scope="col" class="px-6 py-3"> действие</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,6 +38,39 @@
                         </td>
                     </tr>
                 {% endfor %}
+                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <td class="px-6 py-4"></td>
+                    <td class="px-6 py-4">
+                        <form>
+                            <input type="text" id="surname_to_add" placeholder="Фамилия">
+                        </form>
+                    </td>
+                    <td class="px-6 py-4">
+                        <form>
+                            <input type="text" id="name_to_add" placeholder="Имя">
+                        </form>
+                    </td>
+                    <td class="px-6 py-4">
+                        <form>
+                            <input type="text" id="patronymic_to_add" placeholder="Отчество">
+                        </form>
+                    </td>
+                    <td class="px-6 py-4">
+                        <form>
+                            <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" id="birth_date_to_add" placeholder="Дата Рождения">
+                        </form>
+                    </td>
+
+                    <td class="px-6 py-4">
+                        <button type="button" onclick="addMember()"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                        Add
+                        </button>
+                    </td>
+                </tr>
+                <div id="error_message" style="color: tomato; display: none">
+                    Ошибка ввода данных
+                </div>
                 </tbody>
             </table>
         </div>

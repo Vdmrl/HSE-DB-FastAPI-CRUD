@@ -9,7 +9,9 @@ from auth.auth import auth_backend
 from auth.database import User
 from auth.manager import get_user_manager
 
-from database.database import cursor
+from database.database import cursor, connection
+
+from admin.scemas import Member
 
 router = APIRouter(
     prefix="/admin",
@@ -41,6 +43,12 @@ def get_members(request: Request, user: User = Depends(current_user)):
     cursor.execute("SELECT * FROM members;")
     data = cursor.fetchall()
     return templates.TemplateResponse("members_admin.html", {"request": request, "data": data, "user": user})
+
+@router.post("/members")
+def get_members(member: Member, user: User = Depends(current_user)):
+    cursor.execute(f"INSERT INTO members VALUES (DEFAULT, '{member.surname}', '{member.name}', '{member.patronymic}', '{member.birth_date}')")
+    connection.commit()
+    return member
 
 
 @router.get("/trainers", response_class=HTMLResponse)
