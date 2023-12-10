@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Depends, HTTPException
 from fastapi.templating import Jinja2Templates
 
 from starlette.responses import HTMLResponse
@@ -11,7 +11,7 @@ from auth.manager import get_user_manager
 
 from database.database import cursor, connection
 
-from admin.scemas import Member
+from admin.scemas import Member_to_insert, Member_to_delete
 
 router = APIRouter(
     prefix="/admin",
@@ -44,11 +44,22 @@ def get_members(request: Request, user: User = Depends(current_user)):
     data = cursor.fetchall()
     return templates.TemplateResponse("members_admin.html", {"request": request, "data": data, "user": user})
 
-@router.post("/members")
-def get_members(member: Member, user: User = Depends(current_user)):
-    cursor.execute(f"INSERT INTO members VALUES (DEFAULT, '{member.surname}', '{member.name}', '{member.patronymic}', '{member.birth_date}')")
+@router.post("/members/insert")
+def get_members(member: Member_to_insert, user: User = Depends(current_user)):
+    # XD
+    if member.surname and member.name and member.patronymic and len(member.birth_date) == 10 and member.birth_date[4] == '-' and member.birth_date[4] == '-' and member.birth_date[7] == '-' and ( 1 <= int(member.birth_date[8:]) <= 31) and ( 1 <= int(member.birth_date[5:7]) <= 12) and ( 1900 <= int(member.birth_date[0:4]) <= 2023):
+        cursor.execute(f"INSERT INTO members VALUES (DEFAULT, '{member.surname}', '{member.name}', '{member.patronymic}', '{member.birth_date}')")
+        connection.commit()
+    else:
+        return HTTPException(status_code=400, detail="Wrong database injection")
+    return member
+
+@router.post("/members/delete")
+def get_members(member: Member_to_delete, user: User = Depends(current_user)):
+    cursor.execute(f"DELETE FROM members WHERE id = {member.id}")
     connection.commit()
     return member
+
 
 
 @router.get("/trainers", response_class=HTMLResponse)

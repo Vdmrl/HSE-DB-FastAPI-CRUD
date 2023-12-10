@@ -74,6 +74,39 @@
 
     function addMember() {
         const error_div = document.querySelector("#error_message")
+        let formData = {
+            surname: document.querySelector("#surname_to_add").value,
+            name: document.querySelector("#name_to_add").value,
+            patronymic: document.querySelector("#patronymic_to_add").value,
+            birth_date: document.querySelector("#birth_date_to_add").value
+        }
+        let options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        };
+        // Отправка fetch-запроса
+        fetch("/admin/members/insert", options)
+            .then(response => {
+                if (!response.ok) {
+                    error_div.style.display = "block"
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                window.location.href = "/admin/members";
+                return response.json();
+            })
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    }
+    /*
+    function updateMember(mem_id) {
+        const error_div = document.querySelector("#error_message")
         error_div.style.display = "none";
         let formData = {
             surname: document.querySelector("#surname_to_add").value,
@@ -89,14 +122,11 @@
             body: JSON.stringify(formData)
         };
         // Отправка fetch-запроса
-        fetch("/admin/members", options)
+        fetch("/admin/members/insert", options)
             .then(response => {
                 if (!response.ok) {
-                    if (response.status === 400) {
-                        throw new Error("Bad Request");
-                    } else {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
+                    error_div.style.display = "block"
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 window.location.href = "/admin/members";
                 return response.json();
@@ -106,10 +136,36 @@
             })
             .catch(error => {
                 console.error('Fetch error:', error);
+            });
+    }
+    */
 
-                if (error.message === "Bad Request") {
-                    error_div.style.display = "block";
+    function deleteMember(mem_id) {
+        let formData = {
+            id: mem_id
+        }
+        let options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        };
+        // Отправка fetch-запроса
+        fetch("/admin/members/delete", options)
+            .then(response => {
+                if (!response.ok) {
+                    error_div.style.display = "block"
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+                window.location.href = "/admin/members";
+                return response.json();
+            })
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
             });
     }
 </script>

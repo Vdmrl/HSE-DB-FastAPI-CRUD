@@ -6,6 +6,13 @@
             window.location.href = `../crud/search/${searchInputValue}`;
         }
     </script>
+    <style>
+        input::placeholder {
+            opacity: 100;
+            color: black;
+            font-size: 1.2em;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -24,47 +31,75 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for col in data %}
+                <!-- поля -->
+                {% for row in range(data|length) %}
                     <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                        {% for val in col %}
-                            {% if val != None %}
-                                <td class="px-6 py-4"> {{ val }} </td>
+                        {% for val in range(data[row]|length) %}
+                            {% if data[row][val] != None %}
+                                {% if val == 0 %}
+                                    <td class="px-6 py-4">
+                                        {{ data[row][0] }}
+                                    </td>
+                                {% else %}
+
+                                    <td class="px-6 py-4">
+                                        <form>
+                                            <input type="text" id="{{ data[row][0] + row }}"
+                                                   style="color: grey; font-size: 2ex; background: transparent"
+                                                   value="{{ data[row][val] }} ">
+                                            {{ data[row][0] ~"|" ~ val }}
+                                        </form>
+                                    </td>
+                                {% endif %}
                             {% else %}
                                 <td class="px-6 py-4"> —</td>
                             {% endif %}
                         {% endfor %}
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <button type="button" onclick="updateMember({{ data[row][0] }})"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                Edit
+                            </button>
+                            <button type="button" onclick="deleteMember({{ data[row][0] }})"
+                                    class="font-medium hover:underline" STYLE="color: tomato">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                 {% endfor %}
+                <!-- add -->
                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                     <td class="px-6 py-4"></td>
                     <td class="px-6 py-4">
                         <form>
-                            <input type="text" id="surname_to_add" placeholder="Фамилия">
+                            <input type="text" style="color: grey; background: transparent" id="surname_to_add"
+                                   placeholder="Фамилия">
                         </form>
                     </td>
                     <td class="px-6 py-4">
                         <form>
-                            <input type="text" id="name_to_add" placeholder="Имя">
+                            <input type="text" style="color: grey; background: transparent" id="name_to_add"
+                                   placeholder="Имя">
                         </form>
                     </td>
                     <td class="px-6 py-4">
                         <form>
-                            <input type="text" id="patronymic_to_add" placeholder="Отчество">
+                            <input type="text" style="color: grey; background: transparent" id="patronymic_to_add"
+                                   placeholder="Отчество">
                         </form>
                     </td>
                     <td class="px-6 py-4">
                         <form>
-                            <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" id="birth_date_to_add" placeholder="Дата Рождения">
+                            <input type="text" style="color: grey; background: transparent"
+                                   pattern="\d{4}-\d{1,2}-\d{1,2}" id="birth_date_to_add"
+                                   placeholder="Дата Рождения">
                         </form>
                     </td>
 
                     <td class="px-6 py-4">
                         <button type="button" onclick="addMember()"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Add
+                            Add
                         </button>
                     </td>
                 </tr>
