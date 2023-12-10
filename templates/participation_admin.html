@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
 {% block head %}
     <script>
         const searchForOperation = () => {
@@ -16,10 +16,11 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3"> id</th>
-                    <th scope="col" class="px-6 py-3"> Расстояниев метрах</th>
-                    <th scope="col" class="px-6 py-3"> Время рекорда</th>
-                    <th scope="col" class="px-6 py-3"> id Участника</th>
-                    <th scope="col" class="px-6 py-3"> Дата рождения</th>
+                    <th scope="col" class="px-6 py-3"> id мероприятия</th>
+                    <th scope="col" class="px-6 py-3"> id участника</th>
+                    <th scope="col" class="px-6 py-3"> время забега</th>
+                    <th scope="col" class="px-6 py-3"> место</th>
+                    <th scope="col" class="px-6 py-3"> расстояние в метрах</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,9 @@
                                 <td class="px-6 py-4"> —</td>
                             {% endif %}
                         {% endfor %}
+                        <td class="px-6 py-4">
+                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

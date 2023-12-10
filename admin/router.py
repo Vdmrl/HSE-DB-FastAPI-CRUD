@@ -10,6 +10,7 @@ from auth.database import User
 from auth.manager import get_user_manager
 
 from database.database import cursor
+
 router = APIRouter(
     prefix="/admin",
     tags=["admin"]
@@ -34,37 +35,51 @@ def get_base_page(request: Request):
 def get_base_page(request: Request):
     return templates.TemplateResponse("registration.html", {"request": request})
 
+
 @router.get("/members", response_class=HTMLResponse)
 def get_members(request: Request, user: User = Depends(current_user)):
     cursor.execute("SELECT * FROM members;")
     data = cursor.fetchall()
-    return templates.TemplateResponse("members_admin.html", {"request": request, "data": data})
+    return templates.TemplateResponse("members_admin.html", {"request": request, "data": data, "user": user})
 
 
 @router.get("/trainers", response_class=HTMLResponse)
 def get_trainers(request: Request, user: User = Depends(current_user)):
     cursor.execute(
-        "SELECT trainers.id,trainers.surname,trainers.name,trainers.patronymic,trainers.birth_date,ranks.name,ranks.payment FROM trainers INNER JOIN ranks ON trainers.rank_id = ranks.id")
+        "SELECT * FROM trainers")
     data = cursor.fetchall()
-    return templates.TemplateResponse("trainers_admin.html", {"request": request, "data": data})
+    return templates.TemplateResponse("trainers_admin.html", {"request": request, "data": data, "user": user})
+
+@router.get("/ranks", response_class=HTMLResponse)
+def get_trainers(request: Request, user: User = Depends(current_user)):
+    cursor.execute(
+        "SELECT * FROM ranks")
+    data = cursor.fetchall()
+    return templates.TemplateResponse("ranks_admin.html", {"request": request, "data": data, "user": user})
 
 
 @router.get("/classes", response_class=HTMLResponse)
 def get_classes(request: Request, user: User = Depends(current_user)):
     cursor.execute("SELECT * FROM classes;")
     data = cursor.fetchall()
-    return templates.TemplateResponse("classes_admin.html", {"request": request, "data": data})
+    return templates.TemplateResponse("classes_admin.html", {"request": request, "data": data, "user": user})
 
 
 @router.get("/events", response_class=HTMLResponse)
 def get_events(request: Request, user: User = Depends(current_user)):
     cursor.execute("SELECT * FROM events;")
     data = cursor.fetchall()
-    return templates.TemplateResponse("events_admin.html", {"request": request, "data": data})
+    return templates.TemplateResponse("events_admin.html", {"request": request, "data": data, "user": user})
+
+@router.get("/participation", response_class=HTMLResponse)
+def get_events(request: Request, user: User = Depends(current_user)):
+    cursor.execute("SELECT * FROM participations;")
+    data = cursor.fetchall()
+    return templates.TemplateResponse("participation_admin.html", {"request": request, "data": data, "user": user})
 
 
 @router.get("/records", response_class=HTMLResponse)
 def get_records(request: Request, user: User = Depends(current_user)):
     cursor.execute("SELECT * FROM records;")
     data = cursor.fetchall()
-    return templates.TemplateResponse("records_admin.html", {"request": request, "data": data})
+    return templates.TemplateResponse("records_admin.html", {"request": request, "data": data, "user": user})
