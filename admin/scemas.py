@@ -9,3 +9,10 @@ class Member_to_insert(BaseModel):
 
 class Member_to_delete(BaseModel):
     id: int
+
+class Member_to_update(BaseModel):
+    id: int
+    surname: str
+    name: str
+    patronymic: str
+    birth_date: str

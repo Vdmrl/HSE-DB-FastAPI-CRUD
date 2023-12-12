@@ -44,10 +44,9 @@
 
                                     <td class="px-6 py-4">
                                         <form>
-                                            <input type="text" id="{{ data[row][0] + row }}"
+                                            <input type="text" id="{{"_" ~ data[row][0] ~ "_" ~ val }}"
                                                    style="color: grey; font-size: 2ex; background: transparent"
                                                    value="{{ data[row][val] }} ">
-                                            {{ data[row][0] ~"|" ~ val }}
                                         </form>
                                     </td>
                                 {% endif %}
