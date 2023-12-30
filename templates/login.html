@@ -52,41 +52,5 @@
     </div>
 </section>
 </body>
-<script>
-    function reg() {
-        const error_div = document.querySelector("#error_message")
-        error_div.style.display = "none";
-        let formData = new FormData();
-        formData.append('username', document.querySelector("#email").value);
-        formData.append('password', document.querySelector("#password").value);
-
-        let options = {
-            method: "POST",
-            body: formData
-        };
-        // Отправка fetch-запроса
-        fetch("/auth/jwt/login", options)
-            .then(response => {
-                if (!response.ok) {
-                    if (response.status === 400) {
-                        throw new Error("Bad Request");
-                    } else {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                }
-                window.location.href = "admin/members";
-                return response.json();
-            })
-            .then(data => {
-                console.log(data)
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-
-                if (error.message === "Bad Request") {
-                    error_div.style.display = "block";
-                }
-            });
-    }
-</script>
+<script src="../static/js/scripts.js"></script>
 </html>

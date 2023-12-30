@@ -81,8 +81,9 @@ def get_members(member: Member_to_update, user: User = Depends(current_user)):
     if (member and member.birth_date):
         member.birth_date = member.birth_date.strip()
     cursor.execute("SELECT id FROM members")
-    if int(member.id) in map(lambda x: x[0], cursor.fetchall()) and member.surname and member.name and member.patronymic and len(
-            member.birth_date) == 10 and member.birth_date[4] == '-' and member.birth_date[4] == '-' and \
+    if int(member.id) in map(lambda x: x[0],
+                             cursor.fetchall()) and member.surname and member.name and member.patronymic and len(
+        member.birth_date) == 10 and member.birth_date[4] == '-' and member.birth_date[4] == '-' and \
             member.birth_date[7] == '-' and (1 <= int(member.birth_date[8:]) <= 31) and (
             1 <= int(member.birth_date[5:7]) <= 12) and (1900 <= int(member.birth_date[0:4]) <= 2023):
         print('ssfsdf')
@@ -103,47 +104,3 @@ def get_members(member: Member_to_update, user: User = Depends(current_user)):
         connection.rollback()
         return HTTPException(status_code=400, detail="Wrong database injection")
     return member
-
-
-@router.get("/trainers", response_class=HTMLResponse)
-def get_trainers(request: Request, user: User = Depends(current_user)):
-    cursor.execute(
-        "SELECT * FROM trainers")
-    data = cursor.fetchall()
-    return templates.TemplateResponse("trainers_admin.html", {"request": request, "data": data, "user": user})
-
-
-@router.get("/ranks", response_class=HTMLResponse)
-def get_trainers(request: Request, user: User = Depends(current_user)):
-    cursor.execute(
-        "SELECT * FROM ranks")
-    data = cursor.fetchall()
-    return templates.TemplateResponse("ranks_admin.html", {"request": request, "data": data, "user": user})
-
-
-@router.get("/classes", response_class=HTMLResponse)
-def get_classes(request: Request, user: User = Depends(current_user)):
-    cursor.execute("SELECT * FROM classes;")
-    data = cursor.fetchall()
-    return templates.TemplateResponse("classes_admin.html", {"request": request, "data": data, "user": user})
-
-
-@router.get("/events", response_class=HTMLResponse)
-def get_events(request: Request, user: User = Depends(current_user)):
-    cursor.execute("SELECT * FROM events;")
-    data = cursor.fetchall()
-    return templates.TemplateResponse("events_admin.html", {"request": request, "data": data, "user": user})
-
-
-@router.get("/participation", response_class=HTMLResponse)
-def get_events(request: Request, user: User = Depends(current_user)):
-    cursor.execute("SELECT * FROM participations;")
-    data = cursor.fetchall()
-    return templates.TemplateResponse("participation_admin.html", {"request": request, "data": data, "user": user})
-
-
-@router.get("/records", response_class=HTMLResponse)
-def get_records(request: Request, user: User = Depends(current_user)):
-    cursor.execute("SELECT * FROM records;")
-    data = cursor.fetchall()
-    return templates.TemplateResponse("records_admin.html", {"request": request, "data": data, "user": user})
